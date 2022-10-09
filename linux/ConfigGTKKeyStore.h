@@ -2,7 +2,9 @@
 
 #include <glib.h>
 
-#include <OpenHome/Configuration/BufferPtrCmp.h>
+#include <string>
+
+#include <OpenHome/Buffer.h>
 #include <OpenHome/Configuration/IStore.h>
 #include <OpenHome/Private/Thread.h>
 
