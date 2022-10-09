@@ -386,6 +386,7 @@ void ExampleMediaPlayer::AddConfigApp()
                                           30,
                                           kMaxUiTabs,
                                           kUiSendQueueSize,
+                                          kMsgBufCount,kMsgBufBytes,
                                           iRebootHandler);
 
     iAppFramework->Add(iConfigApp,              // iAppFramework takes ownership
@@ -465,8 +466,7 @@ OpenHome::Net::Library* ExampleMediaPlayerInit::CreateLibrary(TIpAddress preferr
         TIpAddress subnet = (*subnetList)[i]->Subnet();
 
         // If the requested subnet is available, choose it.
-        const TBool isPreferredSubnet = preferredSubnet.iFamily == kFamilyV4 ? CompareIPv4Addrs(preferredSubnet, subnet)
-                                                                             : CompareIPv6Addrs(preferredSubnet, subnet);
+        const TBool isPreferredSubnet = TIpAddressUtils::Equals(preferredSubnet, subnet);
         if (isPreferredSubnet)
         {
             index = i;
@@ -475,8 +475,7 @@ OpenHome::Net::Library* ExampleMediaPlayerInit::CreateLibrary(TIpAddress preferr
 
         // If the last used subnet is available, note it.
         // We'll fall back to it if the requested subnet is not available.
-        const TBool isLastSubnet = lastSubnet.iFamily == kFamilyV4 ? CompareIPv4Addrs(lastSubnet, subnet)
-                                                                   : CompareIPv6Addrs(lastSubnet, subnet);
+        const TBool isLastSubnet = TIpAddressUtils::Equals(lastSubnet, subnet);
 
         if (isLastSubnet)
         {

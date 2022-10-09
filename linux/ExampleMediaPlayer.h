@@ -39,22 +39,6 @@ namespace Av {
     class ControlPointProxy;
 
 // Helpers
-static TBool CompareIPv4Addrs(const TIpAddress addr1,
-                              const TIpAddress addr2)
-{
-    return addr1.iFamily == kFamilyV4
-        && addr2.iFamily == kFamilyV4
-        && addr1.iV4 == addr2.iV4;
-}
-
-static TBool CompareIPv6Addrs(const TIpAddress addr1,
-                              const TIpAddress addr2)
-{
-    return addr1.iFamily == kFamilyV6
-        && addr2.iFamily == kFamilyV6
-        && memcmp((TByte*)addr1.iV6[0], (TByte*)addr2.iV6[0], 16) == 0;
-}
-
     
 
 class ExampleMediaPlayer : private Net::IResourceManager
@@ -63,6 +47,8 @@ class ExampleMediaPlayer : private Net::IResourceManager
     static const TUint kMaxUiTabs       = 4;
     static const TUint kUiSendQueueSize = kMaxUiTabs * 200;
     static const TUint kShellPort       = 2323;
+    static const TUint kMsgBufCount     = 10;
+    static const TUint kMsgBufBytes     = 1024;
 public:
     ExampleMediaPlayer(Net::DvStack& aDvStack, Net::CpStack& aCpStack,
 					   const Brx& aUdn,
